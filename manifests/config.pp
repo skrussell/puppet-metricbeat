@@ -75,12 +75,12 @@ class metricbeat::config inherits metricbeat {
 
   }
 
-  # Create modules.d files that exist in hiera then collect any created via exported resources
+  # Create modules.d files that exist in hiera as virtual resources, then realise all virtualised modules
   $module_templates_real = hiera_array('metricbeat::module_templates', $metricbeat::module_templates)
   $module_templates_real.each |$module| {
-    @@metricbeat::modulesd { $module: }
+    @metricbeat::modulesd { $module: }
   }
-  Metricbeat::Modulesd <<||>>
+  Metricbeat::Modulesd <||>
 
   case $::kernel {
     'Linux': {
