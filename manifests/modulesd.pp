@@ -8,7 +8,7 @@ define metricbeat::modulesd(
 ){
   # Use the default template as the source if non specified
   if ! $source and ! $content {
-    $default_source = "puppet:///modules/metricbeat/${template_name}.yml"
+    $default_source = ["puppet:///modules/metricbeat/v${metricbeat::major_version}/${template_name}.yml","puppet:///modules/metricbeat/${template_name}.yml"]
   } elsif $source {
     $default_source = $source
   }
